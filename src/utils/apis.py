@@ -1,6 +1,24 @@
+from youtrack import Connection, TokenAuth
 import todoist
 
 from .exceptions import *
+
+
+class YouTrackApi:
+    def _authorize(self, token, url, email):
+        api = Connection(url, TokenAuth(token))
+        if api.get_me()['email'] != email:
+            raise BadCredentialsException(email, token)
+
+        self._api = api
+
+    def __init__(self, auth_token, tracker_url, user_email):
+        self._authorize(auth_token, tracker_url, user_email)
+
+    def get_tasks(self, max=10):
+        filter = 'for: me #unresolved'
+
+        return self._api.get_issues(filter, [], max)
 
 
 class TodoistApi:
@@ -36,6 +54,8 @@ class TodoistApi:
         self._default_priority = default_priority
 
     def add_todo(self, key, title, comment=False, priority=False):
+        self._api.sync()
+
         if key in [x['content'].split(' – ')[0]
                    for x in self._api.state['items']
                    if self._label_id in x['labels'] and not x['checked']

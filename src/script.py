@@ -1,6 +1,6 @@
 import json
 
-from utils.apis import TodoistApi
+from utils.apis import TodoistApi, YouTrackApi
 
 
 def parse_parameters():
@@ -11,6 +11,10 @@ def parse_parameters():
 # script
 params = parse_parameters()
 
-client = TodoistApi(**params['todoist'])
+todoistClient = TodoistApi(**params['todoist'])
+youtrackClient = YouTrackApi(**params['youtrack'])
 
-client.add_todo('QS-42', 'Text', priority=3)
+print(youtrackClient.get_tasks(20))
+
+
+# todoistClient.add_todo('QS-42', 'Text', priority=3)
