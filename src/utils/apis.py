@@ -2,6 +2,7 @@ from youtrack import Connection, TokenAuth
 import todoist
 
 from .exceptions import *
+from .models import Task
 
 
 class YouTrackApi:
@@ -16,9 +17,12 @@ class YouTrackApi:
         self._authorize(auth_token, tracker_url, user_email)
 
     def get_tasks(self, max=10):
-        filter = 'for: me #unresolved'
+        filter = 'for:me state:Open, {In Progress}'
+        issues = self._api.get_issues([filter], [], max)
 
-        return self._api.get_issues(filter, [], max)
+        return [Task(i['id'], i['summary']) for i in issues]
+
+
 
 
 class TodoistApi:
@@ -46,33 +50,30 @@ class TodoistApi:
 
         self._label_id = label['id']
 
-    def __init__(self, user_email, api_key, project_name, label, default_priority):
+    def __init__(self, user_email, api_key, project_name, label):
         self._authorize(user_email, api_key)
         self._configure_target_project(project_name)
         self._configure_label(label)
 
-        self._default_priority = default_priority
-
-    def add_todo(self, key, title, comment=False, priority=False):
+    def add_todo(self, task):
         self._api.sync()
 
-        if key in [x['content'].split(' – ')[0]
+        if task.key in [x['content'].split(' – ')[0]
                    for x in self._api.state['items']
                    if self._label_id in x['labels'] and not x['checked']
                    ]:
-            raise ItemAlreadyExistsException(key)
-
-        if not priority:
-            priority = self._default_priority
+            raise ItemAlreadyExistsException(task.key)
 
         item = self._api.items.add(
-            "{0} – {1}".format(key, title),
+            "{0} – {1}".format(task.key, task.title),
             self._target_project['id'],
-            priority=priority,
+            priority=task.priority,
             labels=[self._label_id]
         )
 
-        if comment:
-            note = self._api.notes.add(item['id'], comment)
+        if task.comment:
+            note = self._api.notes.add(item['id'], task.comment)
 
         self._api.commit()
+
+        return task

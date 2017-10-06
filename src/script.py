@@ -1,6 +1,7 @@
 import json
 
 from utils.apis import TodoistApi, YouTrackApi
+from utils.exceptions import ItemAlreadyExistsException
 
 
 def parse_parameters():
@@ -14,7 +15,12 @@ params = parse_parameters()
 todoistClient = TodoistApi(**params['todoist'])
 youtrackClient = YouTrackApi(**params['youtrack'])
 
-print(youtrackClient.get_tasks(20))
+for task in youtrackClient.get_tasks():
+    try:
+        t = todoistClient.add_todo(task)
+        print('Task was added: {}'.format(t))
+    except ItemAlreadyExistsException as e:
+        print(e)
 
+print('\nAll done!')
 
-# todoistClient.add_todo('QS-42', 'Text', priority=3)
