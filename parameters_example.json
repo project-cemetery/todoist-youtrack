@@ -1,0 +1,14 @@
+{
+  "todoist": {
+    "api_key":          "a999a999a999a9aaa9999a9aa9999aa999999999",
+    "user_email":       "example@user.com",
+    "project_name":     "Project BOT",
+    "label":            "[bot]"
+
+  },
+  "youtrack": {
+    "auth_token":   "perm:A9AaaAaaaa999Aa=.AAAaaA==.AAA9aaaAaaAaAaaAaAaAa9aAaa9AaA",
+    "tracker_url":  "https://tracker.user.com/",
+    "user_email":   "example@user.com"
+  }
+}
