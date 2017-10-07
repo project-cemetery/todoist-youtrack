@@ -23,8 +23,6 @@ class YouTrackApi:
         return [Task(i['id'], i['summary']) for i in issues]
 
 
-
-
 class TodoistApi:
     def _authorize(self, email, key):
         api = todoist.api.TodoistAPI(key)
