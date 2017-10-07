@@ -56,11 +56,10 @@ class TodoistApi:
     def add_todo(self, task):
         self._api.sync()
 
-        exist_task_keys = []
-        for task in self._api.state['items']:
-            if self._label_id in task['labels'] and not task['checked']:
-                exist_task_keys.append(task['content'].split(' – ')[0])
-
+        exist_task_keys = [x['content'].split(' – ')[0]
+                           for x in self._api.state['items']
+                           if self._label_id in x['labels'] and not x['checked']
+                           ]
         if task.key in exist_task_keys:
             raise ItemAlreadyExistsException(task.key)
 
