@@ -16,9 +16,9 @@ class YouTrackApi:
     def __init__(self, auth_token, tracker_url, user_email):
         self._authorize(auth_token, tracker_url, user_email)
 
-    def get_tasks(self, max=10):
-        filter = 'for:me state:Open, {In Progress}'
-        issues = self._api.get_issues([filter], [], max)
+    def get_tasks(self, count=10):
+        filter_query = 'for:me state:Open, {In Progress}'
+        issues = self._api.get_issues([filter_query], [], count)
 
         return [Task(i['id'], i['summary']) for i in issues]
 
