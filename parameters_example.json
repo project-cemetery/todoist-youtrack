@@ -4,7 +4,6 @@
     "user_email":       "example@user.com",
     "project_name":     "Project BOT",
     "label":            "[bot]"
-
   },
   "youtrack": {
     "auth_token":   "perm:A9AaaAaaaa999Aa=.AAAaaA==.AAA9aaaAaaAaAaaAaAaAa9aAaa9AaA",

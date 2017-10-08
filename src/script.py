@@ -3,8 +3,6 @@ from utils.exceptions import ItemAlreadyExistsException
 from utils.parameters import parse_parameters
 
 
-
-
 # script
 params = parse_parameters("../parameters.json")
 
