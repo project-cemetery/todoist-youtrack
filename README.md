@@ -1,5 +1,5 @@
 # todoist-youtrack
-Script for clone tasks for YouTrack to Todoist
+Script for clone tasks from YouTrack to Todoist
 
 ## Using
 + `git clone git@github.com:TheNovel/todoist-youtrack.git`
