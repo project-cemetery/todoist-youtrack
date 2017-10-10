@@ -1,3 +1,5 @@
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+
 # todoist-youtrack
 Script for clone tasks from YouTrack to Todoist
 
