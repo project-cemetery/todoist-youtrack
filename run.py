@@ -1,10 +1,10 @@
-from utils.apis import TodoistApi, YouTrackApi
-from utils.exceptions import ItemAlreadyExistsException
-from utils.parameters import parse_parameters
+from src.apis import TodoistApi, YouTrackApi
+from src.exceptions import ItemAlreadyExistsException
+from src.parameters import parse_parameters
 
 
 # script
-params = parse_parameters("../parameters.json")
+params = parse_parameters("parameters.json")
 
 todoistClient = TodoistApi(**params['todoist'])
 youtrackClient = YouTrackApi(**params['youtrack'])
