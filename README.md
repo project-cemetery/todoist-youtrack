@@ -11,5 +11,4 @@ Script for clone tasks from YouTrack to Todoist
 + `virtualenv venv`
 + `source venv/bin/activate`
 + `pip install`
-+ `cd src`
-+ `python script.py`
++ `python run.py`
